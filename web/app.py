@@ -10,7 +10,7 @@ db_name = os.environ.get("DB_NAME")
 
 client = MongoClient(mongo_uri)
 db = client["ipa2026_db"] #dictionary calling
-collection = db["ipa2026_collection1"]
+collection = db["routers"]
 
 data = []
 
