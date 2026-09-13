@@ -3,9 +3,7 @@ import os, time, pika
 user = os.getenv("RABBITMQ_DEFAULT_USER")
 pwd  = os.getenv("RABBITMQ_DEFAULT_PASS")
 
-def callback(ch, method, props, body):
-    print(f"body: {body.decode()}")
-    time.sleep(3)
+from callback import callback
 
 def consume(host):
     for attempt in range(10):
@@ -28,4 +26,5 @@ def consume(host):
     ch.start_consuming()
 
 if __name__=='__main__':
-    consume("localhost")
+    rabbitmq_host = os.getenv("RABBITMQ_HOST", "localhost")
+    consume(rabbitmq_host)

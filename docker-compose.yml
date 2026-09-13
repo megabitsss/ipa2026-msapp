@@ -36,6 +36,14 @@ services:
       - app-net
       
 
+  worker:
+    build: ./worker
+    depends_on:
+      - rabbitmq
+    env_file:
+      - .env
+    networks:
+      - app-net
 
   rabbitmq:
     image: rabbitmq:3-management
