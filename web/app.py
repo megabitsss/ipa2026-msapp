@@ -12,7 +12,7 @@ client = MongoClient(mongo_uri)
 db = client["ipa2026_db"] #dictionary calling
 collection = db["routers"]
 
-data = []
+# data = [] //No more list in the memory -> instead we use mongo
 
 @app.route("/")
 def main():
@@ -51,6 +51,13 @@ def delete_comment():
     except Exception as e:
         print(f"Error: {e}")
     return redirect(url_for("main")) #url_for will look for the path of main() function
-    
+
+@app.route("/router-detail/<router_id>")
+def router_detail(router_id):
+    data = collection.find_one({"_id": ObjectId(router_id)})
+    if data: #change the _id (ObjectId) to string
+        data["_id"] = str(data["_id"]) 
+    return render_template("router-detail.html", data=data) 
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)

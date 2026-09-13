@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ data.ip }}</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Router: {{ data.ip }}</h1>
+    <table>
+        <tr>
+            <th>Timestamp</th>
+            <th>Interface</th>
+            <th>IP Address</th>
+            <th>Status</th>
+            <th>Protocol</th>
+        {% for hist in data.history %}
+                {% for item in hist.interfaces %}
+                <tr>
+                    <!-- ถ้าต้องการตัดข้อความ timestamp ให้สั้นลง หรือโชว์เต็มๆ ก็ใช้ hist.timestamp ได้เลย -->
+                    <td>{{ hist.timestamp }}</td>
+                    <td>{{ item.interface }}</td>
+                    <td>{{ item.ip_address }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.proto }}</td>
+                </tr>
+                {% endfor %}
+            {% endfor %}
+    </table>
+    <a href="{{ url_for('main') }}"><button>Back to Home</button></a>
+</body>
+</html>
