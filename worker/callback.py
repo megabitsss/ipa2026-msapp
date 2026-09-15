@@ -27,12 +27,16 @@ def callback(ch, method, props, body):
                 {"ip": router_ip},
                 {
                     "$push": {
-                        "history": {"timestamp": datetime.now(), "interfaces": result}
+                        "history": {"timestamp": datetime.now(),
+                        "interfaces": result}
                     }
                 },
-                upsert=True,  # ถ้ายังไม่มี IP นี้ใน DB ให้สร้าง Document ใหม่ตั้งต้นให้เลย
+                # ถ้ายังไม่มี IP นี้ใน DB ให้สร้าง Document ใหม่ตั้งต้นให้เลย
+                upsert=True,
             )
-            print(f" เพิ่มประวัติ interfaces ของ {router_ip} ลงใน history สำเร็จ!")
+            print(f" เพิ่มประวัติ interfaces ของ {router_ip}
+                " ลงใน history สำเร็จ!"
+            )
         else:
             print(f" ไม่พบข้อมูล interfaces จาก {router_ip}")
     except Exception as e:
