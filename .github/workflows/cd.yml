@@ -33,7 +33,7 @@ jobs:
             echo "RABBITMQ_DEFAULT_PASS=${{ secrets.RABBITMQ_DEFAULT_PASS }}"
             echo "DB_NAME=${{ secrets.DB_NAME }}"
             echo "PYTHONUNBUFFERED=${{ secrets.PYTHONUNBUFFERED }}"
-            echo "RABBITMQ_HOST=rabbitmq=${{ secrets.RABBITMQ_HOST=rabbitmq }}"
+            echo "RABBITMQ_HOST=rabbitmq"
           } > .env
           chmod 600 .env
 
