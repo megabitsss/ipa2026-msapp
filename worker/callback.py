@@ -24,24 +24,16 @@ def callback(ch, method, props, body):
         result = get_interfaces(router_ip, router_username, router_password)
         if result:
             collection.update_one(
-                {
-                    "ip": router_ip
-                },
+                {"ip": router_ip},
                 {
                     "$push": {
-                        "history": {
-                            "timestamp": datetime.now(),
-                            "interfaces": result
-                        }
+                        "history": {"timestamp": datetime.now(), "interfaces": result}
                     }
                 },
                 # ถ้ายังไม่มี IP นี้ใน DB ให้สร้าง Document ใหม่ตั้งต้นให้เลย
                 upsert=True,
             )
-            print(
-                f"เพิ่มประวัติ interfaces ของ {router_ip}"
-                " ลงใน history สำเร็จ!"
-            )
+            print(f"เพิ่มประวัติ interfaces ของ {router_ip}" " ลงใน history สำเร็จ!")
         else:
             print(f" ไม่พบข้อมูล interfaces จาก {router_ip}")
     except Exception as e:
