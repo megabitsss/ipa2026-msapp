@@ -1,7 +1,12 @@
-from flask import Flask, request, render_template, redirect, url_for
+import os
+from flask import Flask
+from flask import request
+from flask import render_template
+from flask import redirect
+from flask import url_for
 from bson.objectid import ObjectId
 from pymongo import MongoClient
-import os
+
 
 app = Flask(__name__)
 
@@ -28,7 +33,9 @@ def add_comment():
     password = request.form.get("password")
 
     if ip and username and password:
-        collection.insert_one({"ip": ip, "username": username, "password": password})
+        collection.insert_one({"ip": ip, "username":
+        username,
+        "password": password})
         # data.append({"ip": ip, "username": username, "password": password})
     return redirect("/")
 

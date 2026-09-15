@@ -1,6 +1,8 @@
 # Used for SSH to the router
+import ntc_templates
+import os
+import json
 from netmiko import ConnectHandler
-import ntc_templates, os, json
 
 
 def get_interfaces(ip, username, password):
