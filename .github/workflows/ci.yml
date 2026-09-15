@@ -42,10 +42,10 @@ jobs:
 
     - name: Build & Push Docker Images
       run: |
-        docker build -t /home/worker:latest ./worker
-        docker build -t /home/scheduler:latest ./scheduler
-        docker build -t /home/web:latest ./web
+        docker build -t megabitsss/worker:latest ./worker
+        docker build -t megabitsss/scheduler:latest ./scheduler
+        docker build -t megabitsss/web:latest ./web
 
-        docker push /home/worker:latest
-        docker push /home/scheduler:latest
-        docker push /home/web:latest
+        docker push megabitsss/worker:latest
+        docker push megabitsss/scheduler:latest
+        docker push megabitsss/web:latest
