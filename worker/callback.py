@@ -2,14 +2,16 @@ from datetime import datetime
 from bson import json_util
 from router_client import get_interfaces
 
-#Preparing for saving the SSH result to database
+# Preparing for saving the SSH result to database
 from pymongo import MongoClient
 import os
+
 mongo_uri = os.environ.get("MONGO_URI", "mongodb://127.0.0.1:27017/")
 db_name = os.environ.get("DB_NAME", "ipa2026_db")
 client = MongoClient(mongo_uri)
 db = client[db_name]
 collection = db["routers"]
+
 
 def callback(ch, method, props, body):
     job = json_util.loads(body.decode())
@@ -25,13 +27,10 @@ def callback(ch, method, props, body):
                 {"ip": router_ip},
                 {
                     "$push": {
-                        "history": {
-                            "timestamp": datetime.now(),
-                            "interfaces": result
-                        }
+                        "history": {"timestamp": datetime.now(), "interfaces": result}
                     }
                 },
-                upsert=True # ถ้ายังไม่มี IP นี้ใน DB ให้สร้าง Document ใหม่ตั้งต้นให้เลย
+                upsert=True,  # ถ้ายังไม่มี IP นี้ใน DB ให้สร้าง Document ใหม่ตั้งต้นให้เลย
             )
             print(f" เพิ่มประวัติ interfaces ของ {router_ip} ลงใน history สำเร็จ!")
         else:

@@ -1,4 +1,3 @@
-
 import time, pika
 import os
 from bson import json_util
@@ -10,7 +9,7 @@ def scheduler():
     rabbitmq_host = os.getenv("RABBITMQ_HOST", "localhost")
     rabbitmq_user = os.getenv("RABBITMQ_DEFAULT_USER", "admin")
     rabbitmq_pass = os.getenv("RABBITMQ_DEFAULT_PASS", "rabbitmq")
-    
+
     INTERVAL = 10.0
     next_run = time.monotonic()
     count = 0
@@ -18,7 +17,7 @@ def scheduler():
     while True:
         now = time.time()
         now_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(now))
-        ms = int((now % 1) * 1000)  
+        ms = int((now % 1) * 1000)
         now_str_with_ms = f"{now_str}.{ms:03d}"
         print(f"[{now_str_with_ms}] run #{count}")
 
@@ -33,5 +32,6 @@ def scheduler():
         next_run += INTERVAL
         time.sleep(max(0.0, next_run - time.monotonic()))
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     scheduler()

@@ -16,16 +16,20 @@ def produce(host, username, password, body):
     # create queue named router_jobs for storing messages
     channel.queue_declare(queue="router_jobs")
     # bind jobs (exchange) with router_jobs (queue)
-    channel.queue_bind(queue="router_jobs", exchange="jobs", routing_key="check_interfaces")
+    channel.queue_bind(
+        queue="router_jobs", exchange="jobs", routing_key="check_interfaces"
+    )
     # with routing keys as 'check_interfaces'
-    channel.basic_publish(exchange="jobs", routing_key="check_interfaces", body=body) #message publish testing, body=payload
+    channel.basic_publish(
+        exchange="jobs", routing_key="check_interfaces", body=body
+    )  # message publish testing, body=payload
     connection.close()
 
 
 if __name__ == "__main__":
     # the second parameter is just in case var.
-    rabbitmq_host = os.getenv("RABBITMQ_HOST", "localhost") 
+    rabbitmq_host = os.getenv("RABBITMQ_HOST", "localhost")
     rabbitmq_user = os.getenv("RABBITMQ_DEFAULT_USER", "admin")
     rabbitmq_pass = os.getenv("RABBITMQ_DEFAULT_PASS", "rabbitmq")
     # rabbitmq means rabbitmq container in network
-    produce(rabbitmq_host, rabbitmq_user, rabbitmq_pass,"192.168.1.44") 
+    produce(rabbitmq_host, rabbitmq_user, rabbitmq_pass, "192.168.1.44")
