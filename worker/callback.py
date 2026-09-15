@@ -38,7 +38,8 @@ def callback(ch, method, props, body):
                 # ถ้ายังไม่มี IP นี้ใน DB ให้สร้าง Document ใหม่ตั้งต้นให้เลย
                 upsert=True,
             )
-            print(f" เพิ่มประวัติ interfaces ของ {router_ip}"
+            print(
+                f"เพิ่มประวัติ interfaces ของ {router_ip}"
                 " ลงใน history สำเร็จ!"
             )
         else:
