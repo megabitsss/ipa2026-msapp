@@ -42,6 +42,8 @@ services:
       - rabbitmq
     env_file:
       - .env
+    environment:
+      MONGO_URI: "mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongo:27017/"
     networks:
       - app-net
 
