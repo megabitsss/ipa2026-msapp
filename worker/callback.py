@@ -24,10 +24,15 @@ def callback(ch, method, props, body):
         result = get_interfaces(router_ip, router_username, router_password)
         if result:
             collection.update_one(
-                {"ip": router_ip},
-                {"$push": {
-                    "history": {"timestamp": datetime.now(),
-                    "interfaces": result}
+                {
+                    "ip": router_ip
+                },
+                {
+                    "$push": {
+                        "history": {
+                            "timestamp": datetime.now(),
+                            "interfaces": result
+                        }
                     }
                 },
                 # ถ้ายังไม่มี IP นี้ใน DB ให้สร้าง Document ใหม่ตั้งต้นให้เลย

@@ -1,9 +1,11 @@
-import os, time, pika
+import os
+import time
+import pika
+from callback import callback
+
 
 user = os.getenv("RABBITMQ_DEFAULT_USER")
 pwd = os.getenv("RABBITMQ_DEFAULT_PASS")
-
-from callback import callback
 
 
 def consume(host):
@@ -25,7 +27,11 @@ def consume(host):
     ch = conn.channel()
     ch.queue_declare(queue="router_jobs")
     ch.basic_qos(prefetch_count=1)
-    ch.basic_consume(queue="router_jobs", on_message_callback=callback, auto_ack=True)
+    ch.basic_consume(
+        queue="router_jobs",
+        on_message_callback=callback,
+        auto_ack=True
+    )
     ch.start_consuming()
 
 

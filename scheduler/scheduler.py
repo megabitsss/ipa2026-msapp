@@ -24,10 +24,12 @@ def scheduler():
         try:
             for data in get_router_info():
                 body_bytes = json_util.dumps(data).encode("utf-8")
-                produce(rabbitmq_host,
+                produce(
+                    rabbitmq_host,
                     rabbitmq_user,
                     rabbitmq_pass,
-                    body_bytes)
+                    body_bytes
+                    )
         except Exception as e:
             print(e)
             time.sleep(3)
