@@ -59,6 +59,6 @@ services:
 
 volumes:
   mongo-data:
-  
+
 networks:
   app-net:
